@@ -4,6 +4,7 @@ function MainGamePage({ endGame }) {
   const [playerDiсe, setPlayerDiсe] = useState([1, 1, 1, 1, 1]);
   const [opponentDiсe, setOpponentDiсe] = useState([1, 1, 1, 1, 1]);
   const [diceVisible, setDiceVisible] = useState(false);
+  const [winnerVisible, setWinnerVisible] = useState(false);
 
   const randomArr = (arr) => {
     return arr.map((item) => {
@@ -16,8 +17,32 @@ function MainGamePage({ endGame }) {
   const playGame = () => {
     setPlayerDiсe(randomArr(playerDiсe));
     setOpponentDiсe(randomArr(opponentDiсe));
-    setTimeout(() => setDiceVisible(true), 2000);
+    setDiceVisible(true);
+    setTimeout(() => setWinnerVisible(true), 2000);
     console.log("play");
+  };
+
+  const newPlayGame = () => {
+    setDiceVisible(false);
+    setWinnerVisible(false);
+    setTimeout(playGame, 2000);
+  };
+
+  const whoWin = (arr1, arr2) => {
+    const totalArr1 = arr1.reduce(function (a, b) {
+      return a + b;
+    });
+    const totalArr2 = arr2.reduce(function (a, b) {
+      return a + b;
+    });
+
+    if (totalArr1 > totalArr2) {
+      return <Winner win={1} />;
+    } else if (totalArr2 > totalArr1) {
+      return <Winner win={2} />;
+    } else {
+      return <Winner win={0} />;
+    }
   };
 
   // const diceElements = (arr) => {
@@ -37,6 +62,8 @@ function MainGamePage({ endGame }) {
         </ul>
       ) : null}
 
+      {winnerVisible ? whoWin(opponentDiсe, playerDiсe) : null}
+
       {diceVisible ? (
         <ul>
           {playerDiсe.map((item) => {
@@ -47,7 +74,7 @@ function MainGamePage({ endGame }) {
 
       <h2>Player</h2>
       <button onClick={() => endGame(false)}>End game</button>
-      <button onClick={() => playGame()}>Roll the dice</button>
+      <button onClick={() => newPlayGame()}>Roll the dice</button>
     </>
   );
 }
@@ -55,7 +82,22 @@ function MainGamePage({ endGame }) {
 function Dice({ dice }) {
   console.log("dice");
 
-  return <li>{dice}</li>;
+  return (
+    <li>
+      <img src={require(`../images/dice-png-${dice}.png`)} alt="dice" />
+    </li>
+  );
+}
+
+function Winner({ win }) {
+  switch (win) {
+    case 1:
+      return <h1 className="youLose">You Lose!!!</h1>;
+    case 2:
+      return <h1 className="youWin">You Win!!!</h1>;
+    default:
+      return <h1 className="deadHeat">Dead Heat!</h1>;
+  }
 }
 
 export default MainGamePage;

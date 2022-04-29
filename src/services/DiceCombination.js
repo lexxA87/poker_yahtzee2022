@@ -8,7 +8,7 @@ function diceCombination(arr) {
     combination = "PAIR";
   } else if (points > 220 && points < 330) {
     combination = "TWO PAIRS";
-  } else if (points > 1015 && points < 1070) {
+  } else if (points > 1014 && points < 1070) {
     combination = "SET";
   } else if (points === 1070) {
     combination = "SMALL STRAIGHT";

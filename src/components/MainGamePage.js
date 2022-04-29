@@ -1,10 +1,13 @@
 import { useState } from "react";
+import counterDice from "../services/CounterDice";
+import diceCombination from "../services/DiceCombination";
 
 function MainGamePage({ endGame }) {
-  const [playerDiсe, setPlayerDiсe] = useState([1, 1, 1, 1, 1]);
-  const [opponentDiсe, setOpponentDiсe] = useState([1, 1, 1, 1, 1]);
+  const [playerDice, setPlayerDice] = useState([1, 1, 1, 1, 1]);
+  const [opponentDice, setOpponentDice] = useState([1, 1, 1, 1, 1]);
   const [diceVisible, setDiceVisible] = useState(false);
   const [winnerVisible, setWinnerVisible] = useState(false);
+  const [combinationVisible, setCombinationVisible] = useState(false);
 
   const randomArr = (arr) => {
     return arr.map((item) => {
@@ -15,9 +18,16 @@ function MainGamePage({ endGame }) {
   };
 
   const playGame = () => {
-    setPlayerDiсe(randomArr(playerDiсe));
-    setOpponentDiсe(randomArr(opponentDiсe));
+    setPlayerDice(
+      randomArr(playerDice).sort((a, b) => (a > b ? -1 : b > a ? 1 : 0))
+    );
+    setOpponentDice(
+      randomArr(opponentDice).sort((a, b) => (a > b ? -1 : b > a ? 1 : 0))
+    );
     setDiceVisible(true);
+    // setTimeout(() => setPlayerDice(playerDice.sort()), 1000);
+    // setTimeout(() => setOpponentDice(opponentDice.sort()), 1000);
+    setTimeout(() => setCombinationVisible(true), 1000);
     setTimeout(() => setWinnerVisible(true), 2000);
     console.log("play");
   };
@@ -29,12 +39,8 @@ function MainGamePage({ endGame }) {
   };
 
   const whoWin = (arr1, arr2) => {
-    const totalArr1 = arr1.reduce(function (a, b) {
-      return a + b;
-    });
-    const totalArr2 = arr2.reduce(function (a, b) {
-      return a + b;
-    });
+    const totalArr1 = counterDice(arr1);
+    const totalArr2 = counterDice(arr2);
 
     if (totalArr1 > totalArr2) {
       return <Winner win={1} />;
@@ -45,31 +51,35 @@ function MainGamePage({ endGame }) {
     }
   };
 
-  // const diceElements = (arr) => {
-  //   arr.foreach((dice) => {
-  //     return <Dice dice={dice} />;
-  //   });
-  // };
-
   return (
     <>
       <h2>Opponent</h2>
       {diceVisible ? (
-        <ul>
-          {opponentDiсe.map((item) => {
-            return <Dice dice={item} />;
-          })}
-        </ul>
+        <>
+          <ul>
+            {opponentDice.map((item, i) => {
+              return <Dice key={i} dice={item} />;
+            })}
+          </ul>
+          {combinationVisible ? (
+            <span>{diceCombination(opponentDice)}</span>
+          ) : null}
+        </>
       ) : null}
 
-      {winnerVisible ? whoWin(opponentDiсe, playerDiсe) : null}
+      {winnerVisible ? whoWin(opponentDice, playerDice) : null}
 
       {diceVisible ? (
-        <ul>
-          {playerDiсe.map((item) => {
-            return <Dice dice={item} />;
-          })}
-        </ul>
+        <>
+          {combinationVisible ? (
+            <span>{diceCombination(playerDice)}</span>
+          ) : null}
+          <ul>
+            {playerDice.map((item, i) => {
+              return <Dice key={i} dice={item} />;
+            })}
+          </ul>
+        </>
       ) : null}
 
       <h2>Player</h2>
@@ -80,7 +90,7 @@ function MainGamePage({ endGame }) {
 }
 
 function Dice({ dice }) {
-  console.log("dice");
+  // console.log("dice");
 
   return (
     <li>

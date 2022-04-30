@@ -2,10 +2,10 @@ import Game from "./components/Game";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="container-fluid">
+      <div className="row">
         <Game />
-      </header>
+      </div>
     </div>
   );
 }

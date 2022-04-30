@@ -52,7 +52,7 @@ function MainGamePage({ endGame }) {
   };
 
   return (
-    <>
+    <div>
       <h2>Opponent</h2>
       {diceVisible ? (
         <>
@@ -85,7 +85,7 @@ function MainGamePage({ endGame }) {
       <h2>Player</h2>
       <button onClick={() => endGame(false)}>End game</button>
       <button onClick={() => newPlayGame()}>Roll the dice</button>
-    </>
+    </div>
   );
 }
 

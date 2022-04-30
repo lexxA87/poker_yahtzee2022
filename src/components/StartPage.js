@@ -3,11 +3,20 @@ import "../App.css";
 
 function StartPage({ startGame }) {
   return (
-    <>
+    <header className="App App-header">
       <img src={logo} className="App-logo" alt="logo" />
-      <p>Play poker Yahtzee with us!!!</p>
-      <button onClick={() => startGame(true)}>PLAY</button>
-    </>
+      <p>Play Poker Dice with us!!!</p>
+
+      <div className="d-grid gap-2 col-3 mx-auto">
+        <button
+          className="btn btn-success"
+          type="button"
+          onClick={() => startGame(true)}
+        >
+          PLAY{" "}
+        </button>
+      </div>
+    </header>
   );
 }
 

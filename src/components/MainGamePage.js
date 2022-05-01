@@ -1,13 +1,20 @@
 import { useState } from "react";
 import counterDice from "../services/CounterDice";
 import diceCombination from "../services/DiceCombination";
+import Buttons from "./Buttons";
+import Dice from "./Dice";
+import Winner from "./Winner";
+
+import "../App.css";
 
 function MainGamePage({ endGame }) {
+  const visibleClass = "visible";
+  const invisibleClass = "invisible";
   const [playerDice, setPlayerDice] = useState([1, 1, 1, 1, 1]);
   const [opponentDice, setOpponentDice] = useState([1, 1, 1, 1, 1]);
-  const [diceVisible, setDiceVisible] = useState(false);
+  const [diceVisible, setDiceVisible] = useState(invisibleClass);
+  const [combinationVisible, setCombinationVisible] = useState(invisibleClass);
   const [winnerVisible, setWinnerVisible] = useState(false);
-  const [combinationVisible, setCombinationVisible] = useState(false);
 
   const randomArr = (arr) => {
     return arr.map((item) => {
@@ -24,16 +31,15 @@ function MainGamePage({ endGame }) {
     setOpponentDice(
       randomArr(opponentDice).sort((a, b) => (a > b ? -1 : b > a ? 1 : 0))
     );
-    setDiceVisible(true);
-    // setTimeout(() => setPlayerDice(playerDice.sort()), 1000);
-    // setTimeout(() => setOpponentDice(opponentDice.sort()), 1000);
-    setTimeout(() => setCombinationVisible(true), 1000);
+    setDiceVisible(visibleClass);
+    setTimeout(() => setCombinationVisible(visibleClass), 1000);
     setTimeout(() => setWinnerVisible(true), 2000);
     console.log("play");
   };
 
   const newPlayGame = () => {
-    setDiceVisible(false);
+    setDiceVisible(invisibleClass);
+    setCombinationVisible(invisibleClass);
     setWinnerVisible(false);
     setTimeout(playGame, 2000);
   };
@@ -43,71 +49,34 @@ function MainGamePage({ endGame }) {
     const totalArr2 = counterDice(arr2);
 
     if (totalArr1 > totalArr2) {
-      return <Winner win={1} />;
+      return 1;
     } else if (totalArr2 > totalArr1) {
-      return <Winner win={2} />;
+      return 2;
+    } else if (totalArr1 === totalArr2) {
+      return 3;
     } else {
-      return <Winner win={0} />;
+      return 0;
     }
   };
 
   return (
-    <div>
+    <div className="App">
       <h2>Opponent</h2>
-      {diceVisible ? (
-        <>
-          <ul>
-            {opponentDice.map((item, i) => {
-              return <Dice key={i} dice={item} />;
-            })}
-          </ul>
-          {combinationVisible ? (
-            <span>{diceCombination(opponentDice)}</span>
-          ) : null}
-        </>
-      ) : null}
+      <Dice arr={opponentDice} visibilityClass={diceVisible} />
+      <span className={combinationVisible}>
+        {diceCombination(opponentDice)}
+      </span>
 
-      {winnerVisible ? whoWin(opponentDice, playerDice) : null}
+      <Winner win={winnerVisible ? whoWin(opponentDice, playerDice) : 0} />
 
-      {diceVisible ? (
-        <>
-          {combinationVisible ? (
-            <span>{diceCombination(playerDice)}</span>
-          ) : null}
-          <ul>
-            {playerDice.map((item, i) => {
-              return <Dice key={i} dice={item} />;
-            })}
-          </ul>
-        </>
-      ) : null}
+      <span className={combinationVisible}>{diceCombination(playerDice)}</span>
+
+      <Dice arr={playerDice} visibilityClass={diceVisible} />
 
       <h2>Player</h2>
-      <button onClick={() => endGame(false)}>End game</button>
-      <button onClick={() => newPlayGame()}>Roll the dice</button>
+      <Buttons endGame={endGame} newPlayGame={newPlayGame} />
     </div>
   );
-}
-
-function Dice({ dice }) {
-  // console.log("dice");
-
-  return (
-    <li>
-      <img src={require(`../images/dice-png-${dice}.png`)} alt="dice" />
-    </li>
-  );
-}
-
-function Winner({ win }) {
-  switch (win) {
-    case 1:
-      return <h1 className="youLose">You Lose!!!</h1>;
-    case 2:
-      return <h1 className="youWin">You Win!!!</h1>;
-    default:
-      return <h1 className="deadHeat">Dead Heat!</h1>;
-  }
 }
 
 export default MainGamePage;

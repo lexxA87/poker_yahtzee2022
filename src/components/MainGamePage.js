@@ -34,7 +34,6 @@ function MainGamePage({ endGame }) {
     setDiceVisible(visibleClass);
     setTimeout(() => setCombinationVisible(visibleClass), 1000);
     setTimeout(() => setWinnerVisible(true), 2000);
-    console.log("play");
   };
 
   const newPlayGame = () => {

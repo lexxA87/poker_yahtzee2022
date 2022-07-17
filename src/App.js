@@ -1,22 +1,22 @@
+import { useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
-import "./App.css";
 
-import Game from "./components/Game";
-import Menu from "./components/menu/Menu";
-import TestAnimation from "./components/testAnimation/TestAnimation";
+import StartPage from "./components/StartPage";
 
 function App() {
+  useEffect(() => {
+    document.body.style.backgroundColor = "#212529";
+
+    return () => {
+      document.body.style.backgroundColor = null;
+    };
+  }, []);
+
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <Routes>
-          <Route index path="/" element={<Game />} />
-          <Route index path="/test" element={<TestAnimation />} />
-          <Route index path="/menu" element={<Menu />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
-    </div>
+    <Routes>
+      <Route index path="/" element={<StartPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
 

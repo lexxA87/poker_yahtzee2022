@@ -10,6 +10,7 @@ function Menu() {
     top-50 start-50 translate-middle"
     >
       <Button>Play</Button>
+      <Button>Settings</Button>
       <Button>Statistic</Button>
       <Button>Reiting</Button>
       <Button>Login/Logout</Button>

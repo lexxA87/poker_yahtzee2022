@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
+import { useTheme } from "./data/stores/useTheme";
 import MainGamePage from "./components/game/MainGamePage";
 import RatingPage from "./components/ratingPage/RatingPage";
 import LoginPage from "./components/authorization/LoginPage";
@@ -9,13 +10,15 @@ import StatisticsPage from "./components/statisticsPage/StatisticsPage";
 import SettingsPage from "./components/settingsPage/SettingsPage";
 
 function App() {
+  const isTheme = useTheme((state) => state.isTheme);
+
   useEffect(() => {
-    document.body.style.backgroundColor = "#212529";
+    document.body.style.backgroundColor = isTheme;
 
     return () => {
       document.body.style.backgroundColor = null;
     };
-  }, []);
+  }, [isTheme]);
 
   return (
     <Routes>

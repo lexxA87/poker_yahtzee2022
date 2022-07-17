@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 
 function Menu() {
+  const navigate = useNavigate();
+
   return (
     <div
       className="d-grid gap-4 
@@ -9,7 +12,7 @@ function Menu() {
     col-lg-3 mx-auto position-absolute 
     top-50 start-50 translate-middle"
     >
-      <Button>Play</Button>
+      <Button onClick={() => navigate("game")}>Play</Button>
       <Button>Settings</Button>
       <Button>Statistic</Button>
       <Button>Reiting</Button>

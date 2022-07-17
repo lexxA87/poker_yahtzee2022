@@ -1,4 +1,4 @@
-import "../App.css";
+import "./Game.css";
 
 function Dice({ arr, visibilityClass }) {
   // console.log("dice");
@@ -9,7 +9,10 @@ function Dice({ arr, visibilityClass }) {
         {arr.map((item, i) => {
           return (
             <li key={i}>
-              <img src={require(`../images/dice-png-${item}.png`)} alt="dice" />
+              <img
+                src={require(`../../images/dice-png-${item}.png`)}
+                alt="dice"
+              />
             </li>
           );
         })}

@@ -1,15 +1,15 @@
 import { useState } from "react";
-import counterDice from "../services/CounterDice";
-import diceCombination from "../services/DiceCombination";
+import { useNavigate } from "react-router-dom";
+import counterDice from "../../services/CounterDice";
+import diceCombination from "../../services/DiceCombination";
 import Buttons from "./Buttons";
 import Dice from "./Dice";
 import Winner from "./Winner";
 
-import "../App.css";
-
-function MainGamePage({ endGame }) {
+function MainGamePage() {
   const visibleClass = "visible";
   const invisibleClass = "invisible";
+  const navigate = useNavigate();
   const [playerDice, setPlayerDice] = useState([1, 1, 1, 1, 1]);
   const [opponentDice, setOpponentDice] = useState([1, 1, 1, 1, 1]);
   const [diceVisible, setDiceVisible] = useState(invisibleClass);
@@ -58,8 +58,12 @@ function MainGamePage({ endGame }) {
     }
   };
 
+  const endGame = () => {
+    navigate("/");
+  };
+
   return (
-    <div className="App">
+    <div>
       <h2>Opponent</h2>
       <Dice arr={opponentDice} visibilityClass={diceVisible} />
       <span className={combinationVisible}>

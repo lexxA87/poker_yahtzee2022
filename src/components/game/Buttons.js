@@ -1,5 +1,3 @@
-import "bootstrap-icons/font/bootstrap-icons.css";
-
 function Buttons({ endGame, newPlayGame }) {
   return (
     <div className="container">
@@ -15,7 +13,7 @@ function Buttons({ endGame, newPlayGame }) {
       <div className="row justify-content-between fixed-bottom m-4">
         <div className="col-auto me-auto">
           <button
-            onClick={() => endGame(false)}
+            onClick={() => endGame()}
             className="btn btn-dark"
             type="button"
           >

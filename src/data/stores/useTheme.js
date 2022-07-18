@@ -5,8 +5,9 @@ export const useTheme = create((set) => ({
   isTheme: localStorage.getItem("Theme") || configData.DARK_COLOR,
   setTheme: (string) => {
     localStorage.setItem("Theme", string);
+    document.body.style.backgroundColor = string;
     set({
-      isDarkTheme: string,
+      isTheme: string,
     });
   },
 }));

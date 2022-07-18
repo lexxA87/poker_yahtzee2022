@@ -14,10 +14,6 @@ function App() {
 
   useEffect(() => {
     document.body.style.backgroundColor = isTheme;
-
-    return () => {
-      document.body.style.backgroundColor = null;
-    };
   }, [isTheme]);
 
   return (

@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useTheme } from "../../data/stores/useTheme";
-import { useNavigate } from "react-router-dom";
 import configData from "../../data/config.json";
 import { Button, Form } from "react-bootstrap";
 
 function SettingsForm() {
   const isTheme = useTheme((state) => state.isTheme);
   const setTheme = useTheme((state) => state.setTheme);
-  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const submitSettingsForm = (theme) => {
-    setTheme(theme);
-    navigate("/");
+  // Add button to start page and set navigate there!!!
+
+  const submitSettingsForm = async (theme) => {
+    setIsLoading(true);
+    await setTheme(theme);
+    setIsLoading(false);
   };
 
   const formik = useFormik({
@@ -24,6 +26,7 @@ function SettingsForm() {
       submitSettingsForm(values.theme);
     },
   });
+
   return (
     <Form noValidate onSubmit={formik.handleSubmit}>
       <Form.Group className="mb-3" controlId="validationFormik01">
@@ -50,7 +53,9 @@ function SettingsForm() {
         </Form.Select>
       </Form.Group>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" disabled={isLoading}>
+        {isLoading ? "Loading…" : "Submit"}
+      </Button>
     </Form>
   );
 }

@@ -1,7 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import SettingsForm from "../forms/SettingsForm";
 
 function SettingsPage() {
+  const navigate = useNavigate();
+
   return (
     <div
       className="d-grid gap-4 
@@ -11,6 +15,7 @@ function SettingsPage() {
     >
       <h2 className="fw-bold text-light">Settings</h2>
       <SettingsForm />
+      <Button onClick={() => navigate("/")}>Main menu</Button>
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { Button, Modal, Alert } from "react-bootstrap";
 
 function ModalAuth(props) {
   const redirect = useNavigate();
-  console.log("modal");
 
   const handleClose = () => {
     redirect("/");

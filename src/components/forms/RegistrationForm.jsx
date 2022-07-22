@@ -18,8 +18,6 @@ function RegistrationForm(props) {
   //     },
   //   });
 
-  console.log("reg form");
-
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .max(60, "field too big")

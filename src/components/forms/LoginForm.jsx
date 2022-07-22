@@ -23,6 +23,8 @@ function LoginForm(props) {
   //     },
   //   });
 
+  console.log("login form");
+
   const validationSchema = Yup.object().shape({
     password: Yup.string()
       .min(4, "field too short")

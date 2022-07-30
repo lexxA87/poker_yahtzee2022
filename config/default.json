@@ -1,0 +1,5 @@
+{
+  "serverPort": "8080",
+  "MongoDBUrl": "mongodb+srv://alex:mongoDB2022@dice.kcj8m.mongodb.net/?retryWrites=true&w=majority",
+  "secretKey": "yo"
+}

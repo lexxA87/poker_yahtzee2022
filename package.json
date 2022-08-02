@@ -2,6 +2,7 @@
   "name": "poker_yahtzee2022",
   "version": "0.1.0",
   "dependencies": {
+    "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.0",
     "bootstrap-icons": "^1.9.1",

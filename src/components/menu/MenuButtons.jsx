@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
 import { Button } from "react-bootstrap";
 
 function MenuButtons() {
   const navigate = useNavigate();
-  const [isAuth, setIsAuth] = useState(false);
+  const isAuth = useCurrentUserStore((state) => state.isAuth);
+  const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+
+  const clickRefLoginButton = () => {
+    if (isAuth) {
+      setIsAuth(false);
+    } else {
+      navigate("login");
+    }
+  };
 
   return (
     <>
@@ -16,7 +26,7 @@ function MenuButtons() {
         Statistics
       </Button>
       <Button onClick={() => navigate("rating")}>Rating</Button>
-      <Button onClick={() => setIsAuth(!isAuth)}>
+      <Button onClick={() => clickRefLoginButton()}>
         {isAuth ? "Logout" : "Login"}
       </Button>
     </>

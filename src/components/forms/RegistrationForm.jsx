@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 // import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Form, FloatingLabel, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as Yup from "yup";
-// import { userRegistration } from "../../api/userAPI";
+import { userRegistration } from "../../api/userAPI";
 
 function RegistrationForm(props) {
+  const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   //   const { t } = useTranslation();
 
@@ -30,22 +32,16 @@ function RegistrationForm(props) {
     email: Yup.string().email().required(),
   });
 
-  //   const registrationSubmit = async (values) => {
-  //     setLoading(true);
-  //     const res = await userRegistration(values);
-  //     if (res.user) {
-  //       alert(res.message);
-  //       setShowLogin(true);
-  //     } else {
-  //       alert(res);
-  //       setLoading(false);
-  //     }
-  //   };
-
-  const registrationSubmit = (values) => {
+  const registrationSubmit = async (values) => {
     setLoading(true);
-    alert(values);
-    setLoading(false);
+    const res = await userRegistration(values);
+    if (res.user) {
+      alert(res.message);
+      navigate("/login");
+    } else {
+      alert(res);
+      setLoading(false);
+    }
   };
 
   return (

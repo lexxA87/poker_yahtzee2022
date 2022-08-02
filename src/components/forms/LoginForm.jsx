@@ -3,16 +3,16 @@ import { Form, FloatingLabel, Button } from "react-bootstrap";
 // import { useTranslation } from "react-i18next";
 import { Formik } from "formik";
 import * as Yup from "yup";
-// import { userLogin } from "../../api/userAPI";
-// import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
-// import { useNavigate } from "react-router-dom";
+import { userLogin } from "../../api/userAPI";
+import { useCurrentUserStore } from "../../data/stores/useCurrentUserStore";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm(props) {
   const [isLoading, setLoading] = useState(false);
-  //   const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
-  //   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+  const setCurrentUser = useCurrentUserStore((state) => state.setCurrentUser);
+  const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
   //   const { t } = useTranslation();
-  //   const redirect = useNavigate();
+  const navigate = useNavigate();
 
   //   Yup.setLocale({
   //     mixed: {
@@ -31,23 +31,16 @@ function LoginForm(props) {
     email: Yup.string().email().required(),
   });
 
-  //   const loginSubmit = async (values) => {
-  //     setLoading(true);
-  //     const res = await userLogin(values);
-  //     if (res.name) {
-  //       setCurrentUser(res);
-  //       setIsAuth(true);
-  //       handleClose();
-  //       redirect("/userpage");
-  //     } else {
-  //       alert(res);
-  //     }
-  //     setLoading(false);
-  //   };
-
-  const loginSubmit = (values) => {
+  const loginSubmit = async (values) => {
     setLoading(true);
-    alert(values);
+    const res = await userLogin(values);
+    if (res.name) {
+      setCurrentUser(res);
+      setIsAuth(true);
+      navigate("/");
+    } else {
+      alert(res);
+    }
     setLoading(false);
   };
 

@@ -16,7 +16,7 @@ router.post(
     check("name", "Uncorrect name").isLength({ min: 2, max: 60 }),
     check(
       "password",
-      "Password should be longer than 3 and shorter than 20"
+      "Password should be longer than 4 and shorter than 20"
     ).isLength({ min: 4, max: 20 }),
   ],
   userRegistration

@@ -1,20 +1,14 @@
 const mongoose = require("mongoose");
-const { Schema, model, ObjectId } = mongoose;
+const { Schema, model } = mongoose;
 
 const User = new Schema({
   name: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  collections: [{ type: ObjectId, ref: "Collection" }],
-  role: {
-    type: String,
-    enum: ["admin", "user"],
-    required: true,
-    default: "user",
-  },
-  blocked: {
-    type: Boolean,
-    default: false,
+  static: {
+    win: { type: Number, default: 0 },
+    draw: { type: Number, default: 0 },
+    defeat: { type: Number, default: 0 },
   },
 });
 

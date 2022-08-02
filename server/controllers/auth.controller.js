@@ -43,7 +43,6 @@ const userRegistration = async (req, res) => {
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role,
       },
     });
   } catch (e) {
@@ -66,10 +65,6 @@ const userLogin = async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    if (user.blocked) {
-      return res.status(403).json({ message: "User was blocked" });
-    }
-
     const token = jwt.sign({ id: user.id }, config.get("secretKey"), {
       expiresIn: "1d",
     });
@@ -80,7 +75,6 @@ const userLogin = async (req, res) => {
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role,
       },
     });
   } catch (e) {
@@ -103,7 +97,6 @@ const userAuth = async (req, res) => {
         id: user.id,
         email: user.email,
         name: user.name,
-        role: user.role,
       },
     });
   } catch (e) {

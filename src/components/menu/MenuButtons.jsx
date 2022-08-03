@@ -7,6 +7,7 @@ function MenuButtons() {
   const navigate = useNavigate();
   const isAuth = useCurrentUserStore((state) => state.isAuth);
   const setIsAuth = useCurrentUserStore((state) => state.setIsAuth);
+  const currentUser = useCurrentUserStore((state) => state.currentUser);
 
   const clickRefLoginButton = () => {
     if (isAuth) {
@@ -18,6 +19,9 @@ function MenuButtons() {
 
   return (
     <>
+      <h2 style={{ color: "white" }}>
+        Hey, {isAuth ? currentUser.name : "stranger"}!
+      </h2>
       <Button onClick={() => navigate("game")} disabled={!isAuth}>
         Play
       </Button>
